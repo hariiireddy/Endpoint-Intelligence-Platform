@@ -1,0 +1,18 @@
+services:
+
+  siem-backend:
+    build:
+      context: ../backend
+    container_name: siem-backend
+    ports:
+      - "8000:8000"
+
+  opensearch:
+    image: opensearchproject/opensearch:2.11.1
+    container_name: siem-opensearch
+    environment:
+      - discovery.type=single-node
+      - OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m
+      - DISABLE_SECURITY_PLUGIN=true
+    ports:
+      - "9200:9200"
